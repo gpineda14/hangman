@@ -1,9 +1,9 @@
 class Hangman
   require 'json'
   attr_accessor :moves, :word, :correct, :incorrect
-  def initialize(word=choose_word, moves=15, correct=[], incorrect=[])
-    @word = word
-    @moves = moves
+  def initialize(correct=[], incorrect=[])
+    @word = choose_word
+    @moves = 10
     @correct = correct
     @incorrect = incorrect
   end
@@ -20,13 +20,14 @@ class Hangman
   def show_progress
     temp = []
     @correct.each {|letter|
-      if letter == nil
-        temp << "_"
-      else
+      if !letter.nil?
         temp << letter
+      else
+        temp << "_"
       end
     }
-    puts temp.join("")
+    temp.join("")
+    temp
   end
 
   def choose_word
@@ -41,7 +42,7 @@ class Hangman
     @incorrect.each do |letter|
       temp += letter + " "
     end
-    puts "Incorrect: #{temp}"
+    temp
   end
 
   def show_moves_remaining
